@@ -47,7 +47,7 @@ ajouter. Conservez simplement les fichiers de l'archive dans le même dossier.
 
 ## Fonctionnalités
 
-- **Sources** : YouTube (moteur natif), ~1000 sites via yt-dlp (Facebook, Instagram, TikTok,
+- **Sources** : YouTube (moteur natif), ~1000 sites (Facebook, Instagram, TikTok,
   Vimeo, Dailymotion…), détection des vidéos d'une page, **torrents / magnets** (client intégré).
 - **Qualités** : de 360p à la meilleure disponible, ou **audio MP3** (tags ID3 + pochette).
 - **Playlists** : sélection des vidéos à cocher, qualité commune, taille totale estimée.
@@ -72,4 +72,4 @@ plateformes et la législation sur le droit d'auteur en vigueur.
 
 ## Licence
 
-Distribué gratuitement. Voir le dépôt principal pour les détails de licence.
+Logiciel **gratuit** (freeware) — ce n'est **pas** un logiciel open source. Tous droits réservés.
