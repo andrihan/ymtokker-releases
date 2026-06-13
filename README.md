@@ -35,11 +35,8 @@ dans le menu, et les commandes `ydown` (CLI) / `ydown-gui` sont disponibles dans
 ### Windows
 
 Téléchargez l'archive `ymtokker-downloader-<version>-windows.zip`, décompressez-la, et
-lancez `ymtokker-downloader.exe`. **Tout est inclus** (`yt-dlp.exe` et `ffmpeg.exe`) — aucune
-installation ni dépendance à ajouter. Conservez simplement les trois fichiers dans le même dossier.
-
-> Le fichier `ymtokker-downloader-<version>.exe` fourni séparément sert à la mise à jour
-> intégrée ; pour une première installation, prenez le `.zip`.
+lancez `ymtokker-downloader.exe`. **Tout est inclus** — aucune installation ni dépendance à
+ajouter. Conservez simplement les fichiers de l'archive dans le même dossier.
 
 ## Dépendances
 
