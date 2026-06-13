@@ -34,18 +34,26 @@ dans le menu, et les commandes `ydown` (CLI) / `ydown-gui` sont disponibles dans
 
 ### Windows
 
-Téléchargez `ymtokker-downloader-<version>.exe` et lancez-le — aucune installation requise.
+Téléchargez l'archive `ymtokker-downloader-<version>-windows.zip`, décompressez-la, et
+lancez `ymtokker-downloader.exe`. **Tout est inclus** (`yt-dlp.exe` et `ffmpeg.exe`) — aucune
+installation ni dépendance à ajouter. Conservez simplement les trois fichiers dans le même dossier.
+
+> Le fichier `ymtokker-downloader-<version>.exe` fourni séparément sert à la mise à jour
+> intégrée ; pour une première installation, prenez le `.zip`.
 
 ## Dépendances
 
-| Outil | Requis pour | Linux | Windows |
-|-------|-------------|-------|---------|
-| **ffmpeg** | fusion HD (DASH) et conversion MP3 | `sudo apt install ffmpeg` | placer `ffmpeg.exe` à côté de l'`.exe` ou dans le `PATH` |
-| **yt-dlp** | sites autres que YouTube | `sudo apt install yt-dlp` | placer `yt-dlp.exe` à côté de l'`.exe` ou dans le `PATH` |
-| **VLC** *(optionnel)* | lecture en streaming (« Regarder ») | `sudo apt install vlc` | installation standard |
+Les binaires sont **autonomes pour l'essentiel** :
 
-> Sur Windows, l'application cherche `ffmpeg.exe` et `yt-dlp.exe` **dans son propre dossier** :
-> il suffit de les déposer à côté de `ymtokker-downloader.exe`.
+- **Linux** : le `.deb` embarque **yt-dlp** (toujours à jour) ; **ffmpeg** est installé
+  automatiquement par `apt`. Rien à ajouter.
+- **Windows** : l'archive `.zip` contient déjà **yt-dlp.exe** et **ffmpeg.exe**.
+
+| Outil | Rôle | Fourni |
+|-------|------|--------|
+| **yt-dlp** | sites autres que YouTube | ✅ inclus (.deb et .zip) |
+| **ffmpeg** | fusion HD (DASH) et conversion MP3 | ✅ inclus (.zip) / auto via apt (.deb) |
+| **VLC** *(optionnel)* | lecture en streaming (« Regarder ») | à installer si souhaité |
 
 ## Fonctionnalités
 
