@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YMTokker Downloader — Téléchargeur vidéo Linux &amp; Windows</title>
+<meta name="description" content="Téléchargeur vidéo de bureau : YouTube, ~1000 sites, torrents, MP3, sous-titres. Linux et Windows, gratuit.">
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --line:#272e38; --txt:#e6edf3;
+    --muted:#9aa7b4; --accent:#d6342c; --accent2:#1f6feb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:16px/1.6 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+       background:var(--bg);color:var(--txt)}
+  a{color:var(--accent2);text-decoration:none}
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px}
+  header{text-align:center;padding:72px 20px 40px}
+  header h1{font-size:2.6rem;margin:0 0 .3em}
+  header p{font-size:1.2rem;color:var(--muted);margin:0 auto;max-width:620px}
+  .ver{display:inline-block;margin-top:14px;font-size:.9rem;color:var(--muted)}
+  .dl{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:34px 0 8px}
+  .btn{display:block;min-width:230px;padding:16px 22px;border-radius:12px;
+       background:var(--panel);border:1px solid var(--line);color:var(--txt);
+       text-align:left;transition:.15s;border-left:4px solid var(--accent)}
+  .btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+  .btn b{display:block;font-size:1.05rem}
+  .btn span{color:var(--muted);font-size:.85rem}
+  .note{text-align:center;color:var(--muted);font-size:.85rem;margin-top:6px}
+  section{padding:34px 0;border-top:1px solid var(--line)}
+  h2{font-size:1.4rem}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+  .card h3{margin:.1em 0 .4em;font-size:1.05rem}
+  .card p{margin:0;color:var(--muted);font-size:.92rem}
+  code{background:#0b0f14;border:1px solid var(--line);border-radius:6px;padding:2px 6px;font-size:.88rem}
+  footer{text-align:center;color:var(--muted);font-size:.85rem;padding:40px 20px 60px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>YMTokker Downloader</h1>
+    <p>Téléchargeur vidéo de bureau — YouTube, playlists, ~1000 sites, torrents.
+       Gratuit, pour Linux et Windows.</p>
+    <div class="dl">
+      <a class="btn" id="dl-linux" href="https://github.com/andrihan/ymtokker-releases/releases/latest">
+        <b>⬇ Linux (.deb)</b><span>Debian / Ubuntu — 64 bits</span>
+      </a>
+      <a class="btn" id="dl-windows" href="https://github.com/andrihan/ymtokker-releases/releases/latest">
+        <b>⬇ Windows (.zip)</b><span>64 bits — décompresser &amp; lancer</span>
+      </a>
+    </div>
+    <div class="ver" id="version">Dernière version sur la page des releases</div>
+    <p class="note">Sommes de contrôle SHA-256 fournies avec chaque fichier.</p>
+  </header>
+
+  <section>
+    <h2>Fonctionnalités</h2>
+    <div class="grid">
+      <div class="card"><h3>Toutes les sources</h3><p>YouTube, Facebook, Instagram, TikTok, Vimeo… et torrents / liens magnet.</p></div>
+      <div class="card"><h3>Qualité au choix</h3><p>De 360p à la meilleure disponible, ou extraction audio MP3 avec tags et pochette.</p></div>
+      <div class="card"><h3>Playlists &amp; recherche</h3><p>Sélection des vidéos d'une playlist, recherche YouTube intégrée.</p></div>
+      <div class="card"><h3>Robuste</h3><p>Téléchargements en parallèle, pause / reprise, reprise après coupure.</p></div>
+      <div class="card"><h3>Sous-titres</h3><p>Export <code>.srt</code> dans la langue de votre choix.</p></div>
+      <div class="card"><h3>Multilingue</h3><p>Interface en français, anglais et malgache. Thème clair / sombre.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Installation</h2>
+    <p><b>Linux</b> — aucune dépendance externe à installer :</p>
+    <p><code>sudo apt install ./ymtokker-downloader_&lt;version&gt;_amd64.deb</code></p>
+    <p><b>Windows</b> — décompressez l'archive <code>.zip</code> et lancez <code>ymtokker-downloader.exe</code>.</p>
+  </section>
+
+  <footer>
+    <a href="https://github.com/andrihan/ymtokker-releases/releases">Toutes les versions</a>
+    &nbsp;·&nbsp; Outil gratuit. À utiliser pour des contenus que vous avez le droit de télécharger.
+  </footer>
+</div>
+
+<script>
+// Renseigne les liens de téléchargement avec les fichiers de la dernière version.
+fetch('https://api.github.com/repos/andrihan/ymtokker-releases/releases/latest')
+  .then(r => r.ok ? r.json() : Promise.reject(r.status))
+  .then(rel => {
+    const assets = rel.assets || [];
+    const find = (fn) => (assets.find(fn) || {}).browser_download_url;
+    const deb = find(a => a.name.endsWith('.deb'));
+    const zip = find(a => a.name.toLowerCase().endsWith('.zip'));
+    if (deb) document.getElementById('dl-linux').href = deb;
+    if (zip) document.getElementById('dl-windows').href = zip;
+    if (rel.tag_name) document.getElementById('version').textContent = 'Dernière version : ' + rel.tag_name;
+  })
+  .catch(() => { /* on garde les liens vers la page des releases */ });
+</script>
+</body>
+</html>
