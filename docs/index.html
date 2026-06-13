@@ -1,99 +1,772 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>YMTokker Downloader — Téléchargeur vidéo Linux &amp; Windows</title>
-<meta name="description" content="Téléchargeur vidéo de bureau : YouTube, ~1000 sites, torrents, MP3, sous-titres. Linux et Windows, gratuit.">
-<style>
-  :root{
-    --bg:#0e1116; --panel:#161b22; --line:#272e38; --txt:#e6edf3;
-    --muted:#9aa7b4; --accent:#d6342c; --accent2:#1f6feb;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;font:16px/1.6 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-       background:var(--bg);color:var(--txt)}
-  a{color:var(--accent2);text-decoration:none}
-  .wrap{max-width:880px;margin:0 auto;padding:0 20px}
-  header{text-align:center;padding:72px 20px 40px}
-  header h1{font-size:2.6rem;margin:0 0 .3em}
-  header p{font-size:1.2rem;color:var(--muted);margin:0 auto;max-width:620px}
-  .ver{display:inline-block;margin-top:14px;font-size:.9rem;color:var(--muted)}
-  .dl{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:34px 0 8px}
-  .btn{display:block;min-width:230px;padding:16px 22px;border-radius:12px;
-       background:var(--panel);border:1px solid var(--line);color:var(--txt);
-       text-align:left;transition:.15s;border-left:4px solid var(--accent)}
-  .btn:hover{transform:translateY(-2px);border-color:var(--accent)}
-  .btn b{display:block;font-size:1.05rem}
-  .btn span{color:var(--muted);font-size:.85rem}
-  .note{text-align:center;color:var(--muted);font-size:.85rem;margin-top:6px}
-  section{padding:34px 0;border-top:1px solid var(--line)}
-  h2{font-size:1.4rem}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
-  .card h3{margin:.1em 0 .4em;font-size:1.05rem}
-  .card p{margin:0;color:var(--muted);font-size:.92rem}
-  code{background:#0b0f14;border:1px solid var(--line);border-radius:6px;padding:2px 6px;font-size:.88rem}
-  footer{text-align:center;color:var(--muted);font-size:.85rem;padding:40px 20px 60px}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <header>
-    <h1>YMTokker Downloader</h1>
-    <p>Téléchargeur vidéo de bureau — YouTube, playlists, ~1000 sites, torrents.
-       Gratuit, pour Linux et Windows.</p>
-    <div class="dl">
-      <a class="btn" id="dl-linux" href="https://github.com/andrihan/ymtokker-releases/releases/latest">
-        <b>⬇ Linux (.deb)</b><span>Debian / Ubuntu — 64 bits</span>
-      </a>
-      <a class="btn" id="dl-windows" href="https://github.com/andrihan/ymtokker-releases/releases/latest">
-        <b>⬇ Windows (.zip)</b><span>64 bits — décompresser &amp; lancer</span>
-      </a>
-    </div>
-    <div class="ver" id="version">Dernière version sur la page des releases</div>
-    <p class="note">Sommes de contrôle SHA-256 fournies avec chaque fichier.</p>
-  </header>
+<!doctype html>
 
-  <section>
-    <h2>Fonctionnalités</h2>
-    <div class="grid">
-      <div class="card"><h3>Toutes les sources</h3><p>YouTube, Facebook, Instagram, TikTok, Vimeo… et torrents / liens magnet.</p></div>
-      <div class="card"><h3>Qualité au choix</h3><p>De 360p à la meilleure disponible, ou extraction audio MP3 avec tags et pochette.</p></div>
-      <div class="card"><h3>Playlists &amp; recherche</h3><p>Sélection des vidéos d'une playlist, recherche YouTube intégrée.</p></div>
-      <div class="card"><h3>Robuste</h3><p>Téléchargements en parallèle, pause / reprise, reprise après coupure.</p></div>
-      <div class="card"><h3>Sous-titres</h3><p>Export <code>.srt</code> dans la langue de votre choix.</p></div>
-      <div class="card"><h3>Multilingue</h3><p>Interface en français, anglais et malgache. Thème clair / sombre.</p></div>
-    </div>
-  </section>
+<html class="dark" lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>YMTokker Downloader - High-Performance Media Utility</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .glass-card {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+      .glass-card:hover {
+        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(15, 23, 42, 0.8);
+      }
+      .hero-gradient {
+        background: linear-gradient(
+          180deg,
+          rgba(5, 20, 36, 0) 0%,
+          rgba(5, 20, 36, 1) 100%
+        );
+      }
+      .text-glow-red {
+        text-shadow: 0 0 15px rgba(214, 52, 44, 0.4);
+      }
+      .terminal-block {
+        background: #020617;
+        border-left: 4px solid #d6342c;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #051424;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #273647;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #ab8984;
+      }
+    </style>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#b91d1a",
+              "on-tertiary-fixed": "#131b2e",
+              "tertiary-fixed-dim": "#bec6e0",
+              "on-background": "#d4e4fa",
+              surface: "#051424",
+              "on-primary-fixed-variant": "#930008",
+              "on-error-container": "#ffdad6",
+              "secondary-container": "#0566d9",
+              "on-surface": "#d4e4fa",
+              primary: "#ffb4aa",
+              "surface-container-high": "#1c2b3c",
+              "surface-variant": "#273647",
+              tertiary: "#bec6e0",
+              "primary-container": "#d6342c",
+              "surface-container-highest": "#273647",
+              "on-tertiary-container": "#f9f8ff",
+              "surface-dim": "#051424",
+              "surface-tint": "#ffb4aa",
+              outline: "#ab8984",
+              "on-error": "#690005",
+              "tertiary-fixed": "#dae2fd",
+              "on-secondary-container": "#e6ecff",
+              "on-secondary": "#002e6a",
+              "inverse-surface": "#d4e4fa",
+              secondary: "#adc6ff",
+              "on-secondary-fixed-variant": "#004395",
+              "on-primary-container": "#fff7f6",
+              "on-surface-variant": "#e4beb9",
+              background: "#051424",
+              "primary-fixed": "#ffdad5",
+              "on-tertiary": "#283044",
+              "tertiary-container": "#6a7289",
+              error: "#ffb4ab",
+              "on-primary": "#690004",
+              "primary-fixed-dim": "#ffb4aa",
+              "on-primary-fixed": "#410001",
+              "outline-variant": "#5b403d",
+              "inverse-on-surface": "#233143",
+              "surface-container-lowest": "#010f1f",
+              "surface-bright": "#2c3a4c",
+              "on-tertiary-fixed-variant": "#3f465c",
+              "surface-container": "#122131",
+              "on-secondary-fixed": "#001a42",
+              "error-container": "#93000a",
+              "secondary-fixed": "#d8e2ff",
+              "secondary-fixed-dim": "#adc6ff",
+              "surface-container-low": "#0d1c2d",
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            spacing: {
+              "stack-gap": "16px",
+              "container-max": "1280px",
+              "section-padding-lg": "120px",
+              gutter: "24px",
+              "section-padding-md": "64px",
+            },
+            fontFamily: {
+              "code-sm": ["JetBrains Mono"],
+              "headline-md": ["Inter"],
+              "body-lg": ["Inter"],
+              "label-md": ["JetBrains Mono"],
+              "display-lg": ["Inter"],
+              "body-md": ["Inter"],
+              "headline-lg": ["Inter"],
+              "headline-lg-mobile": ["Inter"],
+            },
+            fontSize: {
+              "code-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }],
+              "headline-md": [
+                "24px",
+                { lineHeight: "32px", fontWeight: "600" },
+              ],
+              "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+              "label-md": ["14px", { lineHeight: "20px", fontWeight: "500" }],
+              "display-lg": [
+                "64px",
+                {
+                  lineHeight: "72px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "800",
+                },
+              ],
+              "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+              "headline-lg": [
+                "40px",
+                {
+                  lineHeight: "48px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "700",
+                },
+              ],
+              "headline-lg-mobile": [
+                "32px",
+                { lineHeight: "40px", fontWeight: "700" },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-white"
+  >
+    <!-- Header (TopNavBar) -->
+    <header
+      class="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-md border-b border-white/10"
+    >
+      <div
+        class="flex justify-between items-center px-gutter max-w-container-max mx-auto h-16"
+      >
+        <div class="flex items-center gap-2">
+          <span
+            class="material-symbols-outlined text-primary-container"
+            style="font-variation-settings: &quot;FILL&quot; 1"
+            >download_done</span
+          >
+          <span
+            class="font-headline-md text-headline-md font-bold text-on-surface"
+            >YMTokker Downloader</span
+          >
+        </div>
+        <nav class="hidden md:flex gap-8">
+          <a
+            class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200"
+            href="#features"
+            >Features</a
+          >
+          <a
+            class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200"
+            href="#installation"
+            >Installation</a
+          >
+          <a
+            class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200"
+            href="https://github.com/andrihan/ymtokker-releases/releases"
+            >Releases</a
+          >
+        </nav>
+        <div class="flex items-center gap-4">
+          <a
+            class="bg-surface-container-high px-4 py-2 rounded font-body-md text-body-md hover:bg-surface-variant transition-all duration-200 flex items-center gap-2"
+            href="https://github.com/andrihan/ymtokker-releases"
+          >
+            <span class="material-symbols-outlined text-[20px]">code</span>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <!-- Hero Section -->
+      <section
+        class="relative min-h-[921px] flex items-center justify-center overflow-hidden pt-16"
+      >
+        <!-- STITCH_SHADER_START:ANIMATION_3 class="absolute inset-0 w-full h-full opacity-60" -->
+        <div
+          class="absolute inset-0 w-full h-full opacity-60"
+          style="display: block"
+        >
+          <canvas
+            id="shader-canvas-ANIMATION_3"
+            style="display: block; width: 100%; height: 100%"
+          ></canvas>
+          <script>
+            (function () {
+              const canvas = document.getElementById(
+                "shader-canvas-ANIMATION_3",
+              );
 
-  <section>
-    <h2>Installation</h2>
-    <p><b>Linux</b> — aucune dépendance externe à installer :</p>
-    <p><code>sudo apt install ./ymtokker-downloader_&lt;version&gt;_amd64.deb</code></p>
-    <p><b>Windows</b> — décompressez l'archive <code>.zip</code> et lancez <code>ymtokker-downloader.exe</code>.</p>
-  </section>
+              // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+              // This fires on initial layout and whenever the element is resized.
+              function syncSize() {
+                const w = canvas.clientWidth || 1280;
+                const h = canvas.clientHeight || 720;
+                if (canvas.width !== w || canvas.height !== h) {
+                  canvas.width = w;
+                  canvas.height = h;
+                }
+              }
+              if (typeof ResizeObserver !== "undefined") {
+                new ResizeObserver(syncSize).observe(canvas);
+              }
+              syncSize();
 
-  <footer>
-    <a href="https://github.com/andrihan/ymtokker-releases/releases">Toutes les versions</a>
-    &nbsp;·&nbsp; Outil gratuit. À utiliser pour des contenus que vous avez le droit de télécharger.
-  </footer>
-</div>
+              const gl =
+                canvas.getContext("webgl") ||
+                canvas.getContext("experimental-webgl");
+              if (!gl) return;
+              const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+              const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
 
-<script>
-// Renseigne les liens de téléchargement avec les fichiers de la dernière version.
-fetch('https://api.github.com/repos/andrihan/ymtokker-releases/releases/latest')
-  .then(r => r.ok ? r.json() : Promise.reject(r.status))
-  .then(rel => {
-    const assets = rel.assets || [];
-    const find = (fn) => (assets.find(fn) || {}).browser_download_url;
-    const deb = find(a => a.name.endsWith('.deb'));
-    const zip = find(a => a.name.toLowerCase().endsWith('.zip'));
-    if (deb) document.getElementById('dl-linux').href = deb;
-    if (zip) document.getElementById('dl-windows').href = zip;
-    if (rel.tag_name) document.getElementById('version').textContent = 'Dernière version : ' + rel.tag_name;
-  })
-  .catch(() => { /* on garde les liens vers la page des releases */ });
-</script>
-</body>
+float noise(vec2 p) {
+    return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    vec3 color1 = vec3(0.02, 0.08, 0.14); // Deep Navy
+    vec3 color2 = vec3(0.05, 0.10, 0.18); // Lighter Navy
+    
+    float n = noise(uv + u_time * 0.05);
+    float pulse = sin(u_time * 0.5) * 0.5 + 0.5;
+    
+    vec3 finalColor = mix(color1, color2, uv.y + n * 0.02);
+    
+    // Add subtle red glow at the bottom
+    float redGlow = smoothstep(0.0, 1.0, 1.0 - uv.y) * 0.1;
+    finalColor += vec3(0.84, 0.20, 0.17) * redGlow * pulse;
+
+    gl_FragColor = vec4(finalColor, 1.0);
+}`;
+              function cs(type, src) {
+                const s = gl.createShader(type);
+                gl.shaderSource(s, src);
+                gl.compileShader(s);
+                return s;
+              }
+              const prog = gl.createProgram();
+              gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+              gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+              gl.linkProgram(prog);
+              gl.useProgram(prog);
+              const buf = gl.createBuffer();
+              gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+              gl.bufferData(
+                gl.ARRAY_BUFFER,
+                new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
+                gl.STATIC_DRAW,
+              );
+              const pos = gl.getAttribLocation(prog, "a_position");
+              gl.enableVertexAttribArray(pos);
+              gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+              const uTime = gl.getUniformLocation(prog, "u_time");
+              const uRes = gl.getUniformLocation(prog, "u_resolution");
+              const uMouse = gl.getUniformLocation(prog, "u_mouse");
+
+              // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+              // Shaders that need normalized coords should use: u_mouse / u_resolution.
+              let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+              window.addEventListener("mousemove", (event) => {
+                const rect = canvas.getBoundingClientRect();
+                if (rect.width && rect.height) {
+                  const nx = (event.clientX - rect.left) / rect.width;
+                  const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+                  mouse.x = nx * canvas.width;
+                  mouse.y = ny * canvas.height;
+                }
+              });
+
+              function render(t) {
+                if (typeof ResizeObserver === "undefined") syncSize();
+                gl.viewport(0, 0, canvas.width, canvas.height);
+                if (uTime) gl.uniform1f(uTime, t * 0.001);
+                if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+                if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+                requestAnimationFrame(render);
+              }
+              render(0);
+            })();
+          </script>
+        </div>
+        <!-- STITCH_SHADER_END:ANIMATION_3 -->
+        <div class="absolute inset-0 hero-gradient"></div>
+        <div class="relative z-10 text-center px-gutter max-w-4xl mx-auto">
+          <div
+            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container/20 border border-primary-container/30 mb-6 animate-pulse"
+          >
+            <span class="w-2 h-2 rounded-full bg-primary-container"></span>
+            <span
+              class="font-label-md text-label-md text-primary tracking-wider uppercase"
+              >Open Source Power</span
+            >
+          </div>
+          <h1
+            class="font-display-lg text-[48px] md:text-display-lg leading-tight mb-6 text-on-surface"
+          >
+            YMTokker
+            <span class="text-primary-container text-glow-red">Downloader</span>
+          </h1>
+          <p
+            class="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-2xl mx-auto"
+          >
+            The ultimate media companion. Seamlessly download videos and audio
+            from over 1,000 websites and torrents with high-speed precision and
+            lossless quality.
+          </p>
+          <!-- Downloads Area -->
+          <div
+            class="flex flex-col md:flex-row items-center justify-center gap-6"
+          >
+            <a
+              class="group relative flex items-center gap-4 bg-primary-container px-8 py-4 rounded-lg transition-transform active:scale-95 border-t border-white/20"
+              href="https://github.com/andrihan/ymtokker-releases/releases/latest"
+              id="dl-linux"
+            >
+              <span class="material-symbols-outlined text-[32px] text-white"
+                >terminal</span
+              >
+              <div class="text-left">
+                <div
+                  class="font-label-md text-white/70 text-[12px] uppercase tracking-widest leading-none mb-1"
+                >
+                  Linux Architecture
+                </div>
+                <div
+                  class="font-headline-md text-headline-md text-white font-bold leading-none"
+                >
+                  Download .deb
+                </div>
+              </div>
+            </a>
+            <a
+              class="group relative flex items-center gap-4 bg-surface-container-highest px-8 py-4 rounded-lg border border-white/10 transition-transform active:scale-95 hover:border-primary-container/50"
+              href="https://github.com/andrihan/ymtokker-releases/releases/latest"
+              id="dl-windows"
+            >
+              <span class="material-symbols-outlined text-[32px] text-primary"
+                >window</span
+              >
+              <div class="text-left">
+                <div
+                  class="font-label-md text-on-surface-variant text-[12px] uppercase tracking-widest leading-none mb-1"
+                >
+                  Windows x64
+                </div>
+                <div
+                  class="font-headline-md text-headline-md text-on-surface font-bold leading-none"
+                >
+                  Download .zip
+                </div>
+              </div>
+            </a>
+          </div>
+          <div
+            class="mt-8 font-code-sm text-code-sm text-on-tertiary-fixed-variant bg-surface-container-low inline-block px-4 py-1 rounded-full"
+            id="version"
+          >
+            Detecting latest version...
+          </div>
+        </div>
+      </section>
+      <!-- Features Bento Grid -->
+      <section
+        class="py-section-padding-lg px-gutter max-w-container-max mx-auto"
+        id="features"
+      >
+        <div class="mb-16 text-center">
+          <h2 class="font-headline-lg text-headline-lg mb-4">
+            Professional Capabilities
+          </h2>
+          <p class="text-on-surface-variant font-body-lg">
+            Engineered for speed, built for reliability.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Card 1 -->
+          <div
+            class="glass-card p-8 rounded-xl flex flex-col items-start gap-6 group"
+          >
+            <div
+              class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center group-hover:bg-primary-container/20 transition-colors"
+            >
+              <span
+                class="material-symbols-outlined text-primary-container"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >all_inclusive</span
+              >
+            </div>
+            <div>
+              <h3 class="font-headline-md text-headline-md mb-2">
+                Toutes les sources
+              </h3>
+              <p class="text-on-surface-variant">
+                Support exhaustif pour plus de 1000 sites web, ainsi que le
+                téléchargement direct de Torrents et Magnet links.
+              </p>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div
+            class="glass-card p-8 rounded-xl flex flex-col items-start gap-6 group md:translate-y-8"
+          >
+            <div
+              class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center group-hover:bg-primary-container/20 transition-colors"
+            >
+              <span
+                class="material-symbols-outlined text-primary-container"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >high_quality</span
+              >
+            </div>
+            <div>
+              <h3 class="font-headline-md text-headline-md mb-2">
+                Qualité au choix
+              </h3>
+              <p class="text-on-surface-variant">
+                Du 144p au 8K HDR. Téléchargez uniquement l'audio ou la vidéo,
+                ou fusionnez automatiquement le meilleur flux disponible.
+              </p>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div
+            class="glass-card p-8 rounded-xl flex flex-col items-start gap-6 group"
+          >
+            <div
+              class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center group-hover:bg-primary-container/20 transition-colors"
+            >
+              <span
+                class="material-symbols-outlined text-primary-container"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >playlist_play</span
+              >
+            </div>
+            <div>
+              <h3 class="font-headline-md text-headline-md mb-2">
+                Playlists &amp; recherche
+              </h3>
+              <p class="text-on-surface-variant">
+                Téléchargez des chaînes entières ou des playlists. Recherche
+                intégrée pour trouver du contenu sans quitter l'application.
+              </p>
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div
+            class="glass-card p-8 rounded-xl flex flex-col items-start gap-6 group"
+          >
+            <div
+              class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center group-hover:bg-primary-container/20 transition-colors"
+            >
+              <span
+                class="material-symbols-outlined text-primary-container"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >verified_user</span
+              >
+            </div>
+            <div>
+              <h3 class="font-headline-md text-headline-md mb-2">Robuste</h3>
+              <p class="text-on-surface-variant">
+                Moteur basé sur yt-dlp, mis à jour régulièrement pour contourner
+                les restrictions et garantir une stabilité maximale.
+              </p>
+            </div>
+          </div>
+          <!-- Card 5 -->
+          <div
+            class="glass-card p-8 rounded-xl flex flex-col items-start gap-6 group md:translate-y-8"
+          >
+            <div
+              class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center group-hover:bg-primary-container/20 transition-colors"
+            >
+              <span
+                class="material-symbols-outlined text-primary-container"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >subtitles</span
+              >
+            </div>
+            <div>
+              <h3 class="font-headline-md text-headline-md mb-2">
+                Sous-titres
+              </h3>
+              <p class="text-on-surface-variant">
+                Extraction automatique des sous-titres, traduction à la volée et
+                intégration directe dans vos fichiers MKV ou MP4.
+              </p>
+            </div>
+          </div>
+          <!-- Card 6 -->
+          <div
+            class="glass-card p-8 rounded-xl flex flex-col items-start gap-6 group"
+          >
+            <div
+              class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center group-hover:bg-primary-container/20 transition-colors"
+            >
+              <span
+                class="material-symbols-outlined text-primary-container"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >language</span
+              >
+            </div>
+            <div>
+              <h3 class="font-headline-md text-headline-md mb-2">
+                Multilingue
+              </h3>
+              <p class="text-on-surface-variant">
+                Interface utilisateur disponible en plusieurs langues, conçue
+                pour être intuitive et accessible aux experts comme aux novices.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Installation Section -->
+      <section
+        class="bg-surface-container-lowest py-section-padding-lg"
+        id="installation"
+      >
+        <div
+          class="px-gutter max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+        >
+          <div>
+            <h2 class="font-headline-lg text-headline-lg mb-8">
+              Ready to deploy?
+            </h2>
+            <div class="space-y-8">
+              <div class="flex gap-4">
+                <div
+                  class="flex-none w-8 h-8 rounded bg-primary-container flex items-center justify-center font-code-sm text-white"
+                >
+                  01
+                </div>
+                <div>
+                  <h4 class="font-headline-md text-headline-md mb-2">
+                    Linux Deployment
+                  </h4>
+                  <p class="text-on-surface-variant mb-4">
+                    Download the Debian package and install it via your terminal
+                    or package manager.
+                  </p>
+                  <div
+                    class="terminal-block p-4 rounded font-code-sm text-code-sm relative group"
+                  >
+                    <code class="text-primary-fixed"
+                      >sudo dpkg -i ymtokker-downloader_latest.deb</code
+                    >
+                    <button
+                      class="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <span class="material-symbols-outlined text-[18px]"
+                        >content_copy</span
+                      >
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <div
+                  class="flex-none w-8 h-8 rounded bg-surface-container-high border border-white/10 flex items-center justify-center font-code-sm text-primary"
+                >
+                  02
+                </div>
+                <div>
+                  <h4 class="font-headline-md text-headline-md mb-2">
+                    Windows Portable
+                  </h4>
+                  <p class="text-on-surface-variant">
+                    Extract the ZIP archive to your preferred directory. No
+                    installation required, just run the executable.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="relative group">
+            <div
+              class="absolute -inset-1 bg-gradient-to-r from-primary-container to-secondary-container rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-1000"
+            ></div>
+            <div
+              class="relative glass-card aspect-video rounded-xl overflow-hidden flex items-center justify-center border-white/5"
+            >
+              <img
+                alt="Software Development"
+                class="w-full h-full object-cover grayscale brightness-50 opacity-40"
+                data-alt="A cinematic, high-resolution close-up of a developer's workspace at night. The focus is on a sleek mechanical keyboard and a high-refresh monitor displaying complex dark-themed code. The scene is illuminated by moody red and blue ambient light, creating a high-tech, authoritative atmosphere. Particles of dust catch the light in a sharp, professional photography style."
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn4CTq1D8FLXgHfqsQ5toONuNiysvGiqu7jBIzGghgzSldMaxC69ZLO92bQXh7Q7BMSM-JFNPNvaMkqsBmGmQYMnJVMHdPZ6PmKXwcNNutdhy9XJgik8UBN6ef5tmOx-hgGQKghRRRU_ydWBouE1IJHGPbvK0dwSYMqIkplbl5Tzi2MLmjK6pWijig5tPVQ8wloIEn7hazi6gUogVnwyfPJylt1pBYVO4KCizmkbIEWOub9sg4lPBmvXWRfWf9TAc2CHbzM_ZZXf4"
+              />
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div
+                  class="p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20"
+                >
+                  <span
+                    class="material-symbols-outlined text-[64px] text-primary"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >play_circle</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- CTA Section -->
+      <section class="py-section-padding-md px-gutter text-center">
+        <div
+          class="max-w-2xl mx-auto glass-card p-12 rounded-2xl border-primary-container/20"
+        >
+          <h2 class="font-headline-lg text-headline-lg mb-4">
+            Start Downloading Now
+          </h2>
+          <p class="text-on-surface-variant font-body-lg mb-8">
+            Join thousands of users who trust YMTokker for their media needs.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a
+              class="bg-primary-container px-8 py-3 rounded-lg font-bold text-white hover:brightness-110 transition-all inline-block"
+              href="https://github.com/andrihan/ymtokker-releases/releases/latest"
+              >Latest Release</a
+            >
+            <a
+              class="bg-transparent border border-white/20 px-8 py-3 rounded-lg font-bold text-on-surface hover:bg-white/5 transition-all inline-block"
+              href="https://github.com/andrihan/ymtokker-releases"
+              >Documentation</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-surface-container-lowest border-t border-white/10">
+      <div
+        class="flex flex-col md:flex-row justify-between items-center py-section-padding-md px-gutter max-w-container-max mx-auto gap-stack-gap"
+      >
+        <div class="text-center md:text-left">
+          <div class="font-headline-sm text-headline-sm text-on-surface mb-2">
+            YMTokker Downloader
+          </div>
+          <p
+            class="font-code-sm text-code-sm text-on-tertiary-fixed-variant max-w-md"
+          >
+            © 2026 YMTokker Downloader. Built for high-performance utility.
+            <br />Outil gratuit. À utiliser pour des contenus que vous avez le
+            droit de télécharger.
+          </p>
+        </div>
+        <nav class="flex flex-wrap justify-center gap-6">
+          <a
+            class="font-code-sm text-code-sm text-on-tertiary-fixed-variant hover:text-on-surface transition-colors"
+            href="https://github.com/andrihan/ymtokker-releases/releases"
+            >Toutes les versions</a
+          >
+          <a
+            class="font-code-sm text-code-sm text-on-tertiary-fixed-variant hover:text-on-surface transition-colors"
+            href="https://github.com/andrihan/ymtokker-releases"
+            >Source Code</a
+          >
+        </nav>
+      </div>
+    </footer>
+    <!-- GitHub Release Fetch Script (Preserved from Original) -->
+    <script>
+      fetch(
+        "https://api.github.com/repos/andrihan/ymtokker-releases/releases/latest",
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          const version = data.tag_name;
+          const releaseDate = new Date(data.published_at).toLocaleDateString();
+          document.getElementById("version").innerText =
+            `Latest: ${version} • Released ${releaseDate}`;
+
+          const assets = data.assets;
+          const linuxAsset = assets.find((asset) =>
+            asset.name.endsWith(".deb"),
+          );
+          const windowsAsset = assets.find((asset) =>
+            asset.name.endsWith(".zip"),
+          );
+
+          if (linuxAsset) {
+            document.getElementById("dl-linux").href =
+              linuxAsset.browser_download_url;
+          }
+          if (windowsAsset) {
+            document.getElementById("dl-windows").href =
+              windowsAsset.browser_download_url;
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching release:", error);
+          document.getElementById("version").innerText = "v1.4.2 stable";
+        });
+
+      // Simple scroll behavior
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+  </body>
 </html>
